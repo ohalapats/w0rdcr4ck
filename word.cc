@@ -5,6 +5,7 @@
 #include <iostream>
 #include <functional>
 #include <fstream>
+#include <string>
 
 template<typename coord_ty>
 struct coord 
@@ -110,12 +111,31 @@ public:
 
 
 
-int main(void)
+int main(int argc, char *argv[])
 {
-  std::cout << "wordsearch" << std::endl;
+  std::string wordlist_name;
+  std::string grid_name;
+  
+  if( argc >= 2 )
+    wordlist_name = argv[1];
+  if( argc >= 3 ) 
+    grid_name = argv[2];
+   
+  std::cout << "wordsearch" << " " << wordlist_name << " " << grid_name << std::endl;
 
+  bool have_grid = false;
   grid<char, 15> tron;
-  tron.load("grid.txt");
+  if( grid_name == "" ) 
+    have_grid = tron.load("grid.txt");
+  else 
+    have_grid = tron.load(grid_name);
+
+  if(!have_grid){
+    std::cout << "No grid file found " << grid_name << " . Exiting" << std::endl;  
+    return 1;
+  }
+  
+ 
   tron.show();
   
 
