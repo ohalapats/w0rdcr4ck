@@ -2,6 +2,7 @@
 /* DATE: Oct 7th, 2017
  * AUTHOR: Dakota Simonds
  */
+
 /*
 * MIT License (MIT)
 * 
