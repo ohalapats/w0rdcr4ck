@@ -1,7 +1,7 @@
+ #pragma once
 /* AUTHOR: Dakota Simonds
- * DATE: Oct 14, 2017
+ * DATE: Nov 5, 2017
  */
-
 
 /*
 * Copyright 2017 Dakota Simonds
@@ -25,52 +25,38 @@
 * THE SOFTWARE.
 */
 
-
-#include <iostream>
-#include <functional>
-#include <fstream>
+#include <bitset>
 #include <string>
-#include <cstdlib>
-#include "ws.hpp"
-#include "direction.hpp"
-#include "data_horse.hpp"
-#include "args.hpp"
+
+enum err_flag{
+  WORDSEARCH = 0,
+  GRID,
+  NOT_ENOUGH_ARGS,
+  TOO_MANY_ARGS,
+};
 
 
-int main(int argc, char *argv[])
+class Args
 {
-  std::cout << "wordsearch (c)opyleft Dakota Simonds 2017" << std::endl;
-  Args args(argc, argv);
+public:
+  std::bitset<8> flags;
+  std::string wordlist_name;
+  std::string grid_name;
+
+  int argc;
+  char **argv;
   
-  if(args.has_errors()){
-    args.show_errors();
-    std::cout << "Exiting" << std::endl;
-    return EXIT_FAILURE;
-  }
+  Args(int ac, char *av[]);
 
-
-  FileData<std::string> word_list(args.wordlist_name);
-
-  for(auto itr = word_list.begin(); itr != word_list.end(); itr++)
-    to_lower(*itr);
- 
-  if(args.wordlist_name == "" || word_list.fail()){
-    std::cout << "no wordlist found " << args.wordlist_name << std::endl 
-              << "Exiting" << std::endl;
-    return EXIT_FAILURE;
-  }
+  void show_errors();
+  bool has_errors();
   
-
-  grid<char, 15> tron(word_list);
-  if( args.grid_name == "" || !tron.load(args.grid_name) ){
-    std::cout << "No grid file found " << args.grid_name << std::endl 
-              << "Exiting" << std::endl;
-    return EXIT_FAILURE;
-  }
-  
-  tron.show();
-  std::cout << tron.solve() << " words found" << std::endl;
+protected:
+  void load();
+};
 
 
-  return EXIT_SUCCESS;
-}
+
+
+
+

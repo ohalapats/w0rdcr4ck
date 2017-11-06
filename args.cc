@@ -1,7 +1,6 @@
 /* AUTHOR: Dakota Simonds
- * DATE: Oct 14, 2017
+ * DATE: Nov 5, 2017
  */
-
 
 /*
 * Copyright 2017 Dakota Simonds
@@ -23,54 +22,41 @@
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
 * THE SOFTWARE.
-*/
+*/ 
 
-
-#include <iostream>
-#include <functional>
-#include <fstream>
-#include <string>
-#include <cstdlib>
-#include "ws.hpp"
-#include "direction.hpp"
-#include "data_horse.hpp"
 #include "args.hpp"
+#include <iostream>
 
 
-int main(int argc, char *argv[])
+
+Args::Args(int ac, char *av[]) : flags(), wordlist_name(""), grid_name(""), argc(ac), argv(av)
 {
-  std::cout << "wordsearch (c)opyleft Dakota Simonds 2017" << std::endl;
-  Args args(argc, argv);
+  try{ load( ); }
+  catch(...){}
+}
+
+void Args::show_errors(){
+  if(flags[ err_flag::NOT_ENOUGH_ARGS ])
+    std::cout << "Not enough arguments" << std::endl;
+
+  if(flags[ err_flag::TOO_MANY_ARGS ])
+    std::cout << "Too many arguments" << std::endl;
+}
+
+bool Args::has_errors()
+{
+  return flags.any();
+}
+
+void Args::load( )
+{
+  if( argc < 3 )
+    flags[ err_flag::NOT_ENOUGH_ARGS ] = true; 
+  else if( argc > 3 )
+    flags[ err_flag::TOO_MANY_ARGS ] = true;
   
-  if(args.has_errors()){
-    args.show_errors();
-    std::cout << "Exiting" << std::endl;
-    return EXIT_FAILURE;
-  }
-
-
-  FileData<std::string> word_list(args.wordlist_name);
-
-  for(auto itr = word_list.begin(); itr != word_list.end(); itr++)
-    to_lower(*itr);
- 
-  if(args.wordlist_name == "" || word_list.fail()){
-    std::cout << "no wordlist found " << args.wordlist_name << std::endl 
-              << "Exiting" << std::endl;
-    return EXIT_FAILURE;
-  }
-  
-
-  grid<char, 15> tron(word_list);
-  if( args.grid_name == "" || !tron.load(args.grid_name) ){
-    std::cout << "No grid file found " << args.grid_name << std::endl 
-              << "Exiting" << std::endl;
-    return EXIT_FAILURE;
-  }
-  
-  tron.show();
-  std::cout << tron.solve() << " words found" << std::endl;
-
-
-  return EXIT_SUCCESS;
+  if( argc >= 2 )
+    wordlist_name = argv[1];
+  if( argc >= 3 ) 
+    grid_name = argv[2];
 }
