@@ -188,7 +188,8 @@ public:
                             * It's so hacky that it hacked itself.
                             * Ideally we would be searching for an end-of-word
                             * character but this strategey works for now.
-                            * TODO: use end-of-word char instead of counting chars found */
+                            * TODO: use end-of-word char instead of 
+                            * counting chars found */
     return false;
   }
 

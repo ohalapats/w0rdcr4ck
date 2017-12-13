@@ -59,9 +59,6 @@ void Args::load( )
   if( argc >= 2 )
       wordlist_name = argv[1];
   
-  
   if( argc >= 3 )
       grid_name = argv[2];
-  
-  
 }

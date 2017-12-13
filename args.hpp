@@ -28,6 +28,9 @@
 #include <bitset>
 #include <string>
 
+using std::bitset;
+using std::string;
+
 enum err_flag{
   WORDSEARCH = 0,
   GRID,
@@ -41,9 +44,9 @@ enum err_flag{
 class Args
 {
 public:
-  std::bitset<8> flags;
-  std::string wordlist_name;
-  std::string grid_name;
+  bitset<8> flags;
+  string wordlist_name;
+  string grid_name;
 
   int argc;
   char **argv;
@@ -56,9 +59,4 @@ public:
 protected:
   void load();
 };
-
-
-
-
-
 

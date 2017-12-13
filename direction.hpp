@@ -113,8 +113,6 @@ class Compass
 {
   typedef std::function< coord<num_ty>(coord<num_ty>) >
     func;
-  
-
   func f;
 public:
   coord<num_ty> cur;

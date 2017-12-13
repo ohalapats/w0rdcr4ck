@@ -61,7 +61,6 @@ int main(int argc, char *argv[])
   }
 
   grid<char, 15> tron(args);
-  
   tron.show();
   cout << tron.solve() << " words found" << endl;
   return EXIT_SUCCESS;
