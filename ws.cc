@@ -51,7 +51,7 @@ void manual_test(grid<char, 15> &tron){
 int main(int argc, char *argv[])
 {
   using namespace std;
-  cout << "w0rdcr4ck v1.0 - under MIT license 2017" << endl;
+  cout << "w0rdcr4ck v1.0 - copyright under MIT license 2017" << endl;
   Args args(argc, argv);
   
   if(args.has_errors()){
