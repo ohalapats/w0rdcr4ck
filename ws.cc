@@ -33,7 +33,6 @@
 #include <cstdlib>
 #include "ws.hpp"
 #include "direction.hpp"
-#include "data_horse.hpp"
 #include "args.hpp"
 
 void manual_test(grid<char, 15> &tron){
