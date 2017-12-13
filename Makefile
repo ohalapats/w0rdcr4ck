@@ -3,7 +3,7 @@ CMP=g++-7 -Wall --std=c++11
 all: main.o args.o
 	$(CMP) main.o args.o -o ws
 
-main.o: ws.cc data_horse.hpp
+main.o: ws.cc data_horse.hpp args.hpp
 	$(CMP) -c ws.cc -o main.o
 
 args.o: args.cc args.hpp
@@ -12,3 +12,4 @@ args.o: args.cc args.hpp
 
 clean:
 	rm -f ./main.o
+	rm -f ./args.o
