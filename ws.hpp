@@ -137,7 +137,7 @@ public:
       col = 0; cur = '\0';
       row++;
     }
-    /* TODO: close file here */
+    fsource.close();
     return true;
   }
 
