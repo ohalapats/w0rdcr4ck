@@ -196,10 +196,11 @@ public:
     for(size_t row = 0; row < SIZE; row++){
       for(size_t col = 0; col < SIZE; col++){
         for(auto itr = dr.begin(); itr != dr.end(); itr++){
+            Compass<int> * compass = itr->eq; 
             /* The compasses are relative to the pos in the matrix */
-            itr->eq->set_coord( static_cast<int>(col), static_cast<int>(row) );
+            compass->set_coord( static_cast<int>(col), static_cast<int>(row) );
 
-            if( word_in_direction( word, *(itr->eq) ) ) /* TODO: CLEAN */
+            if( word_in_direction( word, *compass ) ) 
             {
               count++;
               std::cout << "found " << word 
