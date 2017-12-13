@@ -51,7 +51,7 @@ void manual_test(grid<char, 15> &tron){
 int main(int argc, char *argv[])
 {
   using namespace std;
-  cout << "wordsearch - copyright Dakota Simonds 2017 under MIT license" << endl;
+  cout << "w0rdcr4ck v1.0 - under MIT license 2017" << endl;
   Args args(argc, argv);
   
   if(args.has_errors()){

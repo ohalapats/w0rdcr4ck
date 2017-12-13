@@ -37,7 +37,8 @@ Args::Args(int ac, char *av[]) : flags(), wordlist_name(""), grid_name(""), argc
 
 void Args::show_errors(){
   if(flags[ err_flag::NOT_ENOUGH_ARGS ])
-    std::cout << "Not enough arguments" << std::endl;
+    std::cout << "Not enough arguments. " << std::endl
+         << "w0rdcr4ck [WORDLIST] [GRID]" << std::endl;
 
   if(flags[ err_flag::TOO_MANY_ARGS ])
     std::cout << "Too many arguments" << std::endl;
