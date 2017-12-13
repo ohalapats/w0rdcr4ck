@@ -48,9 +48,8 @@ prefix_new( char c )
   return prefix_init(c, NULL, NULL);
 }
 
+
 /* stuff this double pointer syntax into inline functions */
-
-
 pre_node **
 prefix_next_lvl( pre_node **node)
 { return &( (*node)->next_lvl ); }
@@ -97,6 +96,11 @@ void prefix_insert(pre_node **root, const char *string)
      *cur_node=prefix_new(string[pos]); /* create new node and attatch if not */
    cur_node=prefix_next_lvl(cur_node);  /* advance possition in tree */
   }
+  /*
+  cur_node = prefix_find_in_lvl(cur_node, '\0');
+  if(NULL == *cur_node)
+    *cur_node = prefix_new('\0');
+  */
 }
 
 

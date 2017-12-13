@@ -1,3 +1,5 @@
+#!/usr/bin/perl
+
 # AUTHOR: Dakota Simonds
 # DATE: 10/27/2017
 
@@ -26,7 +28,7 @@
 use warnings;
 use strict;
 
-print("Wordlist proccessor: remove dulicates, special charaters\n");
+print("Wordlist proccessor/cleaner\n");
 
 my %table;
 
@@ -42,12 +44,20 @@ my $fileh;
 open( $fileh, "+<", $fname ) or die "invalid file\n";
 my $line = "";
 
+
+my $min = 0;
+print("Min word size (0 to disable a minimum): ");
+$min = <STDIN>;
+chomp($min);
+
 my $count = 0;
 while(<$fileh>)
 {
   $line = $_;
-  $table{transform($line)} = "";
-  $count++;
+  if(length($line) > $min){
+    $table{transform($line)} = "";
+    $count++;
+  }
 }
 
 close($fileh);

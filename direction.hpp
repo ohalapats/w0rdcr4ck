@@ -28,7 +28,7 @@
 #include <functional>
 #include <iostream>
  
- template<typename coord_ty>
+template<typename coord_ty>
 struct coord 
 {
   coord_ty x;
@@ -105,22 +105,11 @@ coord<num_ty> South( coord<num_ty> point )
   return coord<num_ty>( point.x, point.y+1 );
 }
  
- 
- 
 
-
-class Equation {
-public:
-  Equation()
-  {  }
-  virtual ~Equation() = 0;
-};
-
-inline Equation::~Equation(){}
 
 
 template<typename num_ty>
-class ActionEq : public Equation
+class Compass
 {
   typedef std::function< coord<num_ty>(coord<num_ty>) >
     func;
@@ -130,7 +119,7 @@ class ActionEq : public Equation
 public:
   coord<num_ty> cur;
 
-  explicit ActionEq(func eq)
+  explicit Compass(func eq)
   : f(eq), cur(0,0) /* cur starts at origin */
   { }
 
@@ -162,7 +151,7 @@ public:
 template<typename item_ty>
 struct direction {
   const char *name;
-  ActionEq<item_ty> *eq;
-  direction(const char *n, ActionEq<item_ty> *e) 
+  Compass<item_ty> *eq;
+  direction(const char *n, Compass<item_ty> *e) 
   : name(n), eq(e) {}
 };

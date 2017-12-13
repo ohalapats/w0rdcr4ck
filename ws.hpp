@@ -29,21 +29,36 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <functional>
+#include <cctype>
 #include "direction.hpp"
+#include "args.hpp"
+#include "prefix/prefix.hpp"
+
+using std::vector;
+using std::string;
+using std::fstream;
+
+void to_lower_word( string &subject )
+{
+  for(size_t i = 0; i < subject.length(); i++)
+    subject[i] = tolower( subject[i] );
+}
+
 
 /* it's not pretty but it's prettier */
 template<typename item_ty>
 inline
-void add_dr( std::vector< direction<item_ty> > &dr_vec,
+void add_dr( vector< direction<item_ty> > &dr_vec,
         /* name of the cardinal direction. East, West, etc. */
         const char *dr_name,
-        /* A direction function defined above */
+        /* A direction function */
         std::function< coord<item_ty>(coord<item_ty>) > dr_fun) 
 {
     dr_vec.push_back( /* push_back a direction struct */
       direction<item_ty>( /* direction struct is composed 
                            * of a name and a function object pointer */
-        dr_name, new ActionEq<item_ty>( dr_fun ) ));
+        dr_name, new Compass<item_ty>( dr_fun ) ));
 }
 
 
@@ -51,11 +66,13 @@ template<typename grid_ty, const int SIZE>
 class grid
 {
   grid_ty the_grid[SIZE][SIZE] = {};
-  std::vector<std::string> word_list;
-  std::vector< direction<int> > dr;
+  vector<string> word_list;
+  vector< direction<int> > dr;
+  Prefix ptree;
+  Args &args;
 public:
-  explicit grid( std::vector<std::string> & wl )
-  : word_list(wl), dr()
+  explicit grid( Args &a )
+  :  word_list(), dr(), ptree(), args(a)
   {
     /* add each direction. An inline function was used here
      * to try and clean up the boiler plate. */  
@@ -76,9 +93,30 @@ public:
     for( auto itr = dr.begin(); itr != dr.end(); itr++)
       delete itr->eq;
   }
+  void set_wordlist( vector<string> &wl)
+  {
+    word_list = wl;
+  }
 
-  bool load(std::string source){
-    std::fstream fsource(source);
+  bool load_wordlist(string source)
+  {
+    fstream fsource(source);
+    if(fsource.fail()) 
+      return false;
+    string line;
+    
+    while(!fsource.eof()){
+      fsource >> line;
+      to_lower_word(line);
+      ptree.insert(line);
+    }
+    
+    fsource.close();
+    return true;
+  }
+  
+  bool load_grid(string source){
+    fstream fsource(source);
     if(fsource.fail()) 
       return false;
 
@@ -99,7 +137,7 @@ public:
       col = 0; cur = '\0';
       row++;
     }
-     
+    /* TODO: close file here */
     return true;
   }
 
@@ -115,49 +153,65 @@ public:
 
   bool in_cell( grid_ty & item, const coord<int> &loc )
   {
+    
+    return get_cell(loc) == item;
+  }
+  
+  char get_cell(const coord<int> &loc)
+  {
     /* are we within bounds ? */
     if(   loc.y < 0     || loc.x < 0 
        || loc.y >= SIZE || loc.x >= SIZE )
-      return false; 
-    return the_grid[ loc.y ][ loc.x ] == item;
+      return '\0'; 
+    return the_grid[ loc.y ][ loc.x ];
   }
 
-  bool word_in_direction(std::string &word, ActionEq<int> &drct )
+  /* given a word from a dictionary and uses the compass to compare
+   * the chars one by one with the in_cell function */
+  bool word_in_direction( string &word, Compass<int> &drct )
   {
-    static const unsigned WORD_MIN = 4;
-    size_t len = word.length();
-    if(len < WORD_MIN) return false;
-    for( size_t i = 0; i < len; i++){
-      if( in_cell(word[i], drct.cur) ){
-        drct.advance();
-      } else {
-        return false;
-      } 
+    word = "";
+    auto mon = ptree.monkey();
+    unsigned c = 0;
+    /* todo: we don't need to call tolower everytime */ 
+    while( mon.have_char( tolower(get_cell(drct.cur)) ) )
+    {
+      word = word + get_cell(drct.cur);
+      mon.advance_lvl();
+      drct.advance();
+      c++;
     }
-    return true;
+    if(c > 4) return true; /* this is a hack hack. A hackers' hack. 
+                            * It's so hacky that it hacked itself.
+                            * Ideally we would be searching for an end-of-word
+                            * character but this strategey works for now.
+                            * TODO: use end-of-word char instead of counting chars found */
+    return false;
   }
 
   int solve()
   {
     int count = 0;
-    
-    for(size_t row = 0; row < SIZE; row++)
+    string word; 
+    for(size_t row = 0; row < SIZE; row++){
       for(size_t col = 0; col < SIZE; col++){
-        for(auto w_itr = word_list.begin(); w_itr != word_list.end(); w_itr++){
-          for(auto itr = dr.begin(); itr != dr.end(); itr++){
-            /* The direction equations are relative to the pos in the matrix */
+        for(auto itr = dr.begin(); itr != dr.end(); itr++){
+            /* The compasses are relative to the pos in the matrix */
             itr->eq->set_coord( static_cast<int>(col), static_cast<int>(row) );
-  
-            if( word_in_direction(*w_itr, *(itr->eq) ) )
+
+            if( word_in_direction( word, *(itr->eq) ) ) /* TODO: CLEAN */
             {
               count++;
-              std::cout << "found " << *w_itr  
+              std::cout << "found " << word 
                 << " at (" << col+1 << "," << row+1 << ")"
                 << " in direction " << itr->name << std::endl;
-            } 
+            }
           }
-        }
       }
+    }
     return count;
   }
+
+  Prefix& get_prefix()
+  { return ptree; }
 };

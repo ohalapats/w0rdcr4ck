@@ -36,41 +36,40 @@
 #include "data_horse.hpp"
 #include "args.hpp"
 
+void manual_test(grid<char, 15> &tron){
+  auto &pt = tron.get_prefix();
+  bool good = true;
+  std::string _w_;
+  do {
+    std::cout << ":";
+    std::cin >> _w_;
+    if(_w_ == "q") break;
+    if(pt.find(_w_)) std::cout << "found" << std::endl;
+    else std::cout << "not found" << std::endl; 
+  } while(good);
+}
 
 int main(int argc, char *argv[])
 {
-  std::cout << "wordsearch (c)opyleft Dakota Simonds 2017" << std::endl;
+  using namespace std;
+  cout << "wordsearch - copyright Dakota Simonds 2017 under MIT license" << endl;
   Args args(argc, argv);
   
   if(args.has_errors()){
     args.show_errors();
-    std::cout << "Exiting" << std::endl;
+    cout << "Exiting" << endl;
     return EXIT_FAILURE;
   }
 
-
-  FileData<std::string> word_list(args.wordlist_name);
-
-  for(auto itr = word_list.begin(); itr != word_list.end(); itr++)
-    to_lower(*itr);
- 
-  if(args.wordlist_name == "" || word_list.fail()){
-    std::cout << "no wordlist found " << args.wordlist_name << std::endl 
-              << "Exiting" << std::endl;
-    return EXIT_FAILURE;
-  }
+  grid<char, 15> tron(args);
+  tron.load_wordlist(args.wordlist_name);
+  tron.load_grid(args.grid_name);
   
-
-  grid<char, 15> tron(word_list);
-  if( args.grid_name == "" || !tron.load(args.grid_name) ){
-    std::cout << "No grid file found " << args.grid_name << std::endl 
-              << "Exiting" << std::endl;
-    return EXIT_FAILURE;
-  }
+  //manual_test(tron);
   
   tron.show();
-  std::cout << tron.solve() << " words found" << std::endl;
 
-
+  cout << tron.solve() << " words found" << endl;
+  
   return EXIT_SUCCESS;
 }

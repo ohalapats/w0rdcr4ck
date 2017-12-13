@@ -33,6 +33,8 @@ enum err_flag{
   GRID,
   NOT_ENOUGH_ARGS,
   TOO_MANY_ARGS,
+  GRID_NOT_FOUND,
+  WL_NOT_FOUND
 };
 
 

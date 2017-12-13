@@ -30,63 +30,53 @@
 #include <cstdlib>
 #include <string>
 #include "prefix.h"
-#include "diroutine.hpp"
 
 using std::string;
-
-
-
-/* I'm inventing a new term here: diroutine
-*  A diroutine is similar in nature to the coroutine
-*  however it is different as follows:
-*    - it takes a new argument at each call
-*    - the argument it takes is it's complement diroutine
-*    - it has resettable state
-*/
 
 
 
 class Prefix{
   pre_node *root;
 public:
-  typedef char common_ty;
 
-  class di : public diroutine<common_ty>{
+  /* a monkey climbs a tree */
+  class Monkey{
     const Prefix &parent;
     pre_node *cur;
   public:
     explicit
-    di(const Prefix &p) : parent(p), cur(p.root)
+    Monkey(const Prefix &p) : parent(p), cur(p.root)
     {}
 
-    ~di()
-    {}
-
-    void reset()
-    { cur = parent.root; }
+    ~Monkey(){}
     
-    bool valid()
-    {  return static_cast<bool>( cur ); }
- 
-    const common_ty& operator()()
+    bool good( )
+    { return nullptr != cur; }
+    
+    void reset()
     {
-      return cur->c;
+      cur = parent.root;
     }
- 
-    bool operator()( diroutine<common_ty> &complement )
-    { 
-      if(!cur) return false;
+    
+    void advance_lvl()
+    {
+      if(good())
+        cur = cur->next_lvl;
+    }
+    
+    bool have_char(char c)
+    {
+      if(!good()) return false;
 
-      /* TODO: clean this up */
-      auto &comp_val = complement();
-      cur = *(prefix_find_in_lvl(&cur, comp_val));
-      if( NULL == cur)
-         return false;
-      cur = *(prefix_next_lvl(&cur));
-  
-      return comp_val == (*this)();
+      cur = *prefix_find_in_lvl(&cur, c);
+      return nullptr != cur;
     }
 
+    const pre_node * get_current() const
+    {
+      return cur;
+    }
+    
     friend class Prefix;
   }; 
 
@@ -94,11 +84,11 @@ public:
   ~Prefix();
 
   void insert(const char *word);
-  void insert(string word);
+  void insert(const string &word);
   bool find(const char *word);
   bool find(const string &word);
   unsigned depth( );
 
-  di begin( );
-  friend class Prefix::di;
+  Prefix::Monkey monkey( );
+  friend class Prefix::Monkey;
 };

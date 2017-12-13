@@ -53,7 +53,7 @@ void Prefix::insert(const char *word)
 }
 
 
-void Prefix::insert(string word)
+void Prefix::insert(const string &word)
 {
   prefix_insert(&root, word.c_str());
 }
@@ -76,8 +76,7 @@ unsigned Prefix::depth( )
   return prefix_depth(root);
 }
 
-
-Prefix::di Prefix::begin()
+Prefix::Monkey Prefix::monkey( )
 {
-  return std::move( Prefix::di(*this) );
+  return std::move( Prefix::Monkey(*this) );
 }
