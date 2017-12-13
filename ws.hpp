@@ -135,7 +135,7 @@ public:
         fsource.get(cur);
         /* avoid saving the newline char and start the next row */
         if(cur == '\n') break; 
-        the_grid[row][col] = cur;
+        the_grid[row][col] = tolower(cur);
         col++;
       }
       col = 0; cur = '\0';
@@ -177,8 +177,7 @@ public:
     word = "";
     auto mon = ptree.monkey();
     unsigned c = 0;
-    /* todo: we don't need to call tolower everytime */ 
-    while( mon.have_char( tolower(get_cell(drct.cur)) ) )
+    while( mon.have_char( get_cell(drct.cur) ) )
     {
       word = word + get_cell(drct.cur);
       mon.advance_lvl();
