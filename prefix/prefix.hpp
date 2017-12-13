@@ -45,37 +45,15 @@ public:
     pre_node *cur;
   public:
     explicit
-    Monkey(const Prefix &p) : parent(p), cur(p.root)
-    {}
+    Monkey(const Prefix &p);
 
-    ~Monkey(){}
+    ~Monkey();
     
-    bool good( )
-    { return nullptr != cur; }
-    
-    void reset()
-    {
-      cur = parent.root;
-    }
-    
-    void advance_lvl()
-    {
-      if(good())
-        cur = cur->next_lvl;
-    }
-    
-    bool have_char(char c)
-    {
-      if(!good()) return false;
-
-      cur = *prefix_find_in_lvl(&cur, c);
-      return nullptr != cur;
-    }
-
-    const pre_node * get_current() const
-    {
-      return cur;
-    }
+    bool good( );
+    void reset();
+    void advance_lvl();
+    bool have_char(char c);
+    const pre_node * get_current() const;
     
     friend class Prefix;
   }; 

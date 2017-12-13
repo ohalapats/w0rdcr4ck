@@ -85,6 +85,10 @@ public:
     add_dr<int>(dr, "NorthEast", NorthEast<int>);
     add_dr<int>(dr, "SouthEast", SouthEast<int>);
     add_dr<int>(dr, "SouthWest", SouthWest<int>);
+
+    load_wordlist(args.wordlist_name);
+    load_grid(args.grid_name);
+  
     } catch(...){} /* prevent memory leak in case of an exception */
   }
 

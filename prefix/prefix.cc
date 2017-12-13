@@ -80,3 +80,40 @@ Prefix::Monkey Prefix::monkey( )
 {
   return std::move( Prefix::Monkey(*this) );
 }
+
+
+/*** monkey implementations ***/
+
+
+Prefix::Monkey::Monkey(const Prefix &p) : parent(p), cur(p.root)
+{}
+
+Prefix::Monkey::~Monkey(){}
+
+bool Prefix::Monkey::good( )
+{ return nullptr != cur; }
+
+void Prefix::Monkey::reset()
+{
+  cur = parent.root;
+}
+
+void Prefix::Monkey::advance_lvl()
+{
+  if(good())
+    cur = cur->next_lvl;
+}
+
+bool Prefix::Monkey::have_char(char c)
+{
+  if(!good()) return false;
+
+  cur = *prefix_find_in_lvl(&cur, c);
+  return nullptr != cur;
+}
+
+const pre_node * Prefix::Monkey::get_current() const
+{
+  return cur;
+}
+ 
