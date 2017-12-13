@@ -198,7 +198,7 @@ public:
         for(auto itr = dr.begin(); itr != dr.end(); itr++){
             Compass<int> * compass = itr->eq; 
             /* The compasses are relative to the pos in the matrix */
-            compass->set_coord( static_cast<int>(col), static_cast<int>(row) );
+            compass->set_coord(col, row);
 
             if( word_in_direction( word, *compass ) ) 
             {
