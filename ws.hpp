@@ -156,6 +156,7 @@ public:
       std::cout << std::endl;
     }
   }
+ 
 
   bool in_cell( grid_ty & item, const coord<int> &loc )
   {
