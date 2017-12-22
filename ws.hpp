@@ -122,33 +122,6 @@ public:
     return true;
   }
 
-  int scan_size(string grid_path)
-  {
-    fstream grid_file(grid_path);
-    if(grid_file.fail()) 
-      return 0;
-    
-
-    int cur_width = 0;
-    int prev_width = 0;
-    int max_width = 0;
-    int height = 0;
-    char cur = '\0';
-    while(!grid_file.eof()){
-      grid_file.read(&cur, 1); 
-      if(cur  == '\n'){
-        height++;
-        max_width = prev_width < cur_width ? cur_width : prev_width;
-        prev_width = cur_width;
-        cur_width = 0;
-      } else {
-        cur_width++;
-      } 
-    }
-    grid_file.close();
-    return max_width < height ? height : max_width;
-  } 
- 
   bool load_grid(string source){
     fstream fsource(source);
     if(fsource.fail()) 
