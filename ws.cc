@@ -35,19 +35,6 @@
 #include "direction.hpp"
 #include "args.hpp"
 
-void manual_test(grid<char, 15> &tron){
-  auto &pt = tron.get_prefix();
-  bool good = true;
-  std::string _w_;
-  do {
-    std::cout << ":";
-    std::cin >> _w_;
-    if(_w_ == "q") break;
-    if(pt.find(_w_)) std::cout << "found" << std::endl;
-    else std::cout << "not found" << std::endl; 
-  } while(good);
-}
-
 int main(int argc, char *argv[])
 {
   using namespace std;
@@ -60,7 +47,7 @@ int main(int argc, char *argv[])
     return EXIT_FAILURE;
   }
 
-  grid<char, 15> tron(args);
+  grid<char> tron(args);
   tron.show();
   cout << tron.solve() << " words found" << endl;
   return EXIT_SUCCESS;
