@@ -98,7 +98,7 @@ public:
   ~grid()
   {
     for( auto itr = dr.begin(); itr != dr.end(); itr++)
-      delete itr->eq;
+      delete itr->walk;
   }
   void set_wordlist( vector<string> &wl)
   {
@@ -227,7 +227,7 @@ public:
     for(size_t row = 0; row < Y_SIZE; row++){
       for(size_t col = 0; col < X_SIZE; col++){
         for(auto itr = dr.begin(); itr != dr.end(); itr++){
-            Compass<int> * compass = itr->eq; 
+            Compass<int> * compass = itr->walk; 
             /* The compasses are relative to the pos in the matrix */
             compass->set_coord(col, row);
 

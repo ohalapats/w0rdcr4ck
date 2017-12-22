@@ -35,6 +35,17 @@
 #include "direction.hpp"
 #include "args.hpp"
 
+void usage(void)
+{
+  using namespace std;
+  cout << "./w0rdcr4ck [WORDLIST] [GRID]" << endl
+       << "WORDLIST is a line-separated textfile containing words" << endl
+       << " You can clean up a dirty wordlist with wl_proc.pl" << endl
+       << "GRID is a textfile of characters. " << endl 
+       << " This is used for the puzzle itself."
+       << " Each row must be on a new line" << endl;
+}
+
 int main(int argc, char *argv[])
 {
   using namespace std;
@@ -42,6 +53,7 @@ int main(int argc, char *argv[])
   Args args(argc, argv);
   
   if(args.has_errors()){
+    usage();
     args.show_errors();
     cout << "Exiting" << endl;
     return EXIT_FAILURE;
