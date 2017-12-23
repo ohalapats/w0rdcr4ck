@@ -92,7 +92,7 @@ public:
       load_wordlist(args.wordlist_name);
       load_grid(args.grid_name);
       Y_SIZE = the_grid.size();
-      X_SIZE = the_grid[0].length(); /*TODO: this could fail. */
+      X_SIZE = the_grid.front().length(); 
     } catch(...){} /* prevent memory leak in case of an exception */
   }
 
@@ -130,9 +130,9 @@ public:
     
     while(!fsource.eof() )
     {
-      the_grid.push_back(string() );
+      the_grid.push_back( string() );
       while(cur != '\n' && col <= MAX_LINE_LEN){
-        fsource.read(&cur, 1);
+        fsource.get(cur);
         if(cur == '\n') break;
         the_grid.back().push_back( tolower(cur) );
         col++;
