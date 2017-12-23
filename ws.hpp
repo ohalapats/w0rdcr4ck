@@ -66,7 +66,6 @@ template<typename grid_ty>
 class grid
 {
   vector<string> the_grid;
-  vector<string> word_list;
   vector< direction<int> > dr;
   Prefix ptree;
   Args &args;
@@ -74,7 +73,7 @@ class grid
   int Y_SIZE;
 public:
   explicit grid( Args &a )
-  :  word_list(), dr(), ptree(), args(a), X_SIZE(0), Y_SIZE(0)
+  :  the_grid(), dr(), ptree(), args(a), X_SIZE(0), Y_SIZE(0)
   {
     /* add each direction. An inline function was used here
      * to try and clean up the boiler plate. */
@@ -99,10 +98,6 @@ public:
   {
     for( auto itr = dr.begin(); itr != dr.end(); itr++)
       delete itr->walk;
-  }
-  void set_wordlist( vector<string> &wl)
-  {
-    word_list = wl;
   }
 
   bool load_wordlist(string source)
@@ -191,7 +186,8 @@ public:
                             * Ideally we would be searching for an end-of-word
                             * character but this strategey works for now.
                             * TODO: use end-of-word char instead of 
-                            * counting chars found */ return false;
+                            * counting chars found */
+    return false;
   }
 
   int solve()
