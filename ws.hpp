@@ -168,7 +168,7 @@ public:
     /* are we within bounds ? */
     if(   loc.y < 0     || loc.x < 0 
        || loc.y >= Y_SIZE || loc.x >= X_SIZE )
-      return '\0'; 
+      return -1; 
     return the_grid[ loc.y ][ loc.x ];
   }
 
