@@ -38,6 +38,8 @@
 using std::vector;
 using std::string;
 using std::fstream;
+using std::function;
+
 
 void to_lower_word( string &subject )
 {
@@ -53,7 +55,7 @@ void add_dr( vector< direction<item_ty> > &dr_vec,
         /* name of the cardinal direction. East, West, etc. */
         const char *dr_name,
         /* A direction function */
-        std::function< coord<item_ty>(coord<item_ty>) > dr_fun) 
+        function< coord<item_ty>(coord<item_ty>) > dr_fun) 
 {
     dr_vec.push_back( /* push_back a direction struct */
       direction<item_ty>( /* direction struct is composed 

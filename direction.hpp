@@ -27,6 +27,8 @@
 
 #include <functional>
 #include <iostream>
+
+using std::function;
  
 template<typename coord_ty>
 struct coord 
@@ -111,7 +113,7 @@ coord<num_ty> South( coord<num_ty> point )
 template<typename num_ty>
 class Compass
 {
-  typedef std::function< coord<num_ty>(coord<num_ty>) >
+  typedef function< coord<num_ty>(coord<num_ty>) >
     func;
   func f;
 public:
