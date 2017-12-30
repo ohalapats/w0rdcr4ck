@@ -53,6 +53,7 @@ public:
     void reset();
     void advance_lvl();
     bool have_char(char c);
+    bool look_ahead(char c);
     const pre_node * get_current() const;
     
     friend class Prefix;

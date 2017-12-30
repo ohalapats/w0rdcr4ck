@@ -112,6 +112,13 @@ bool Prefix::Monkey::have_char(char c)
   return nullptr != cur;
 }
 
+bool Prefix::Monkey::look_ahead(char c){
+  if(!good()) return false;
+  if(nullptr != cur->next_lvl && cur->next_lvl->c == c) return true;
+  
+  return false;
+}
+
 const pre_node * Prefix::Monkey::get_current() const
 {
   return cur;

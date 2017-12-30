@@ -62,7 +62,8 @@ int main(void)
     "C makes it easy to shoot yourself in the foot; C++ makes it harder, but"
       " when you do, it blows away your whole leg.\n - Bjarne Stroustrup"
   };
-  
+
+ 
   for( auto itr = tests.begin(); itr != tests.end(); itr++)
   {
     test.insert(*itr);

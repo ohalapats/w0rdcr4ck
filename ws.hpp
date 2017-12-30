@@ -175,20 +175,15 @@ public:
   {
     word = "";
     auto mon = ptree.monkey();
-    unsigned c = 0;
+    
     while( mon.have_char( get_cell(drct.cur) ) )
     {
       word = word + get_cell(drct.cur);
+      if(mon.look_ahead('\0')) return true;
       mon.advance_lvl();
       drct.advance();
-      c++;
     }
-    if(c > 4) return true; /* this is a hack hack. A hackers' hack. 
-                            * It's so hacky that it hacked itself.
-                            * Ideally we would be searching for an end-of-word
-                            * character but this strategey works for now.
-                            * TODO: use end-of-word char instead of 
-                            * counting chars found */
+    
     return false;
   }
 
