@@ -63,7 +63,8 @@ void add_dr( vector< direction<item_ty> > &dr_vec,
         dr_name, new Compass<item_ty>( dr_fun ) ));
 }
 
-
+/** This is the class that stores the grid, prefix tree (wordlist), and 
+ * and has the methods to solve the puzzle */
 template<typename grid_ty>
 class grid
 {
@@ -101,7 +102,45 @@ public:
     for( auto itr = dr.begin(); itr != dr.end(); itr++)
       delete itr->walk;
   }
+  void show()
+  {
+    for(int row = 0; row < Y_SIZE; row++){
+      for(int col = 0; col < X_SIZE; col++){
+        std::cout << the_grid[row][col] << " ";
+      }
+      std::cout << std::endl;
+    }
+  }
 
+  int solve()
+  {
+    int count = 0;
+    string word; 
+    Compass<int> * compass;
+    for(size_t row = 0; row < Y_SIZE; row++){
+      for(size_t col = 0; col < X_SIZE; col++){
+        for(auto itr = dr.begin(); itr != dr.end(); itr++){
+            compass = itr->walk; 
+            /* The compasses are relative to the pos in the matrix */
+            compass->set_coord(col, row);
+
+            if( word_in_direction( word, *compass ) ) 
+            {
+              count++;
+              std::cout << "found " << word 
+                << " at (" << col+1 << "," << row+1 << ")"
+                << " in direction " << itr->name << std::endl;
+            }
+          }
+      }
+    }
+    return count;
+  }
+
+  Prefix& get_prefix() const 
+  { return ptree; }
+ 
+private:
   bool load_wordlist(string source)
   {
     fstream fsource(source);
@@ -144,17 +183,6 @@ public:
     return true;
   }
 
-  void show()
-  {
-    for(int row = 0; row < Y_SIZE; row++){
-      for(int col = 0; col < X_SIZE; col++){
-        std::cout << the_grid[row][col] << " ";
-      }
-      std::cout << std::endl;
-    }
-  }
- 
-
   bool in_cell( grid_ty & item, const coord<int> &loc )
   {
     return get_cell(loc) == item;
@@ -187,31 +215,4 @@ public:
     return false;
   }
 
-  int solve()
-  {
-    int count = 0;
-    string word; 
-    Compass<int> * compass;
-    for(size_t row = 0; row < Y_SIZE; row++){
-      for(size_t col = 0; col < X_SIZE; col++){
-        for(auto itr = dr.begin(); itr != dr.end(); itr++){
-            compass = itr->walk; 
-            /* The compasses are relative to the pos in the matrix */
-            compass->set_coord(col, row);
-
-            if( word_in_direction( word, *compass ) ) 
-            {
-              count++;
-              std::cout << "found " << word 
-                << " at (" << col+1 << "," << row+1 << ")"
-                << " in direction " << itr->name << std::endl;
-            }
-          }
-      }
-    }
-    return count;
-  }
-
-  Prefix& get_prefix()
-  { return ptree; }
 };
