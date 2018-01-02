@@ -31,7 +31,7 @@
 using std::bitset;
 using std::string;
 
-enum err_flag{
+enum err_flag{ 
   WORDSEARCH = 0,
   GRID,
   NOT_ENOUGH_ARGS,
