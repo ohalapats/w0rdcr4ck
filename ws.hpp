@@ -75,6 +75,7 @@ class grid
   int X_SIZE;
   int Y_SIZE;
 public:
+  /** pass all parameters via an Args object. See relevant docs */
   explicit grid( Args &a )
   :  the_grid(), dr(), ptree(), args(a), X_SIZE(0), Y_SIZE(0)
   {
