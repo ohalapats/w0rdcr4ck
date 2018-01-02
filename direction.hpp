@@ -29,7 +29,9 @@
 #include <iostream>
 
 using std::function;
- 
+
+
+/** coordinates structure. Stores pairs of x,y */ 
 template<typename coord_ty>
 struct coord 
 {
@@ -109,20 +111,25 @@ coord<num_ty> South( coord<num_ty> point )
  
 
 
-
+/* This allows walking down a path in a grid
+ * to be self-managed so we don't have to worry about the details.
+ * usefull for iteration on the directions */
 template<typename num_ty>
 class Compass
 {
   typedef function< coord<num_ty>(coord<num_ty>) >
-    func;
+    func; /**< a fucntion object that takes in a coord and transforms it
+           * and returns a coord pair by-value. num_ty is typically in int */
   func f;
 public:
   coord<num_ty> cur;
-
+  /** give the constructor a function object that defines a transformation
+   * on coordinates */
   explicit Compass(func eq)
   : f(eq), cur(0,0) /* cur starts at origin */
   { }
 
+  /** sets x and y both to 0 */
   coord<num_ty>& reset_coord()
   {
     cur.x = 0;
@@ -140,7 +147,9 @@ public:
     cur.x = x;
     cur.y = y;
   }
- 
+
+  /** applys the function given to the constructor to the 
+     current coordinates */ 
   coord<num_ty>& advance( void )
   {
     cur = f(cur);

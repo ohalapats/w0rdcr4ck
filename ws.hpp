@@ -102,6 +102,8 @@ public:
     for( auto itr = dr.begin(); itr != dr.end(); itr++)
       delete itr->walk;
   }
+
+  /** display the grid on stdout */
   void show()
   {
     for(int row = 0; row < Y_SIZE; row++){
@@ -112,6 +114,7 @@ public:
     }
   }
 
+  /** solve the puzzle and output it's solution on stdout */
   int solve()
   {
     int count = 0;
@@ -136,7 +139,8 @@ public:
     }
     return count;
   }
-
+  
+  /* return a reference to the prefix tree being used for the wordlist */
   Prefix& get_prefix() const 
   { return ptree; }
  
