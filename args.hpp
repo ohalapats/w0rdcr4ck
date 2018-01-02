@@ -40,22 +40,26 @@ enum err_flag{
   WL_NOT_FOUND
 };
 
-
+/* A special class to store command-line arguments and
+ * and report errors */
 class Args
 {
 public:
-  bitset<8> flags;
+  bitset<16> flags;
   string wordlist_name;
   string grid_name;
 
   int argc;
   char **argv;
-  
+  /** give int args and char *argv[] just like the main function */
   Args(int ac, char *av[]);
 
+  /** display errors to stdout */
   void show_errors();
+  /** true or false if any errors where found */
   bool has_errors();
-  
+  /** set an error status to true */
+  void flag( err_flag flg ); 
 protected:
   void load();
 };

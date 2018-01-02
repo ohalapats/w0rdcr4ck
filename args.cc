@@ -41,6 +41,12 @@ void Args::show_errors(){
 
   if(flags[ err_flag::TOO_MANY_ARGS ])
     std::cout << "Too many arguments" << std::endl;
+
+  if(flags[ err_flag::WL_NOT_FOUND ])
+    std::cout << "Wordlist " << wordlist_name << " not found" << std::endl;
+
+  if(flags[ err_flag::GRID_NOT_FOUND ])
+    std::cout << "Grid " << grid_name << " not found" << std::endl;
 }
 
 bool Args::has_errors()
@@ -61,3 +67,7 @@ void Args::load( )
   if( argc >= 3 )
       grid_name = argv[2];
 }
+
+
+void Args::flag( err_flag flg )
+{  flags[ flg ] = true;  }

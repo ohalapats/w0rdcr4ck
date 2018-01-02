@@ -90,11 +90,20 @@ public:
       add_dr<int>(dr, "NorthEast", NorthEast<int>);
       add_dr<int>(dr, "SouthEast", SouthEast<int>);
       add_dr<int>(dr, "SouthWest", SouthWest<int>);
+      bool goodWL = true;
+      bool goodGrid = true;
+      goodWL =  load_wordlist(args.wordlist_name);
+      if(! goodWL )
+         args.flag( err_flag::WL_NOT_FOUND );   
 
-      load_wordlist(args.wordlist_name);
-      load_grid(args.grid_name);
-      Y_SIZE = the_grid.size();
-      X_SIZE = the_grid.front().length(); 
+      goodGrid =  load_grid(args.grid_name);
+      if(! goodGrid )
+         args.flag( err_flag::GRID_NOT_FOUND );
+
+      if( goodWL && goodGrid ) {
+        Y_SIZE = the_grid.size();
+        X_SIZE = the_grid.front().length(); 
+      }
     } catch(...){} /* prevent memory leak in case of an exception */
   }
 
@@ -188,12 +197,14 @@ private:
     return true;
   }
 
+  /** test to see if item is in the grid at coord loc */
   bool in_cell( grid_ty & item, const coord<int> &loc )
   {
     return get_cell(loc) == item;
   }
   
-  char get_cell(const coord<int> &loc)
+  /* retreive cell at loc */ 
+  grid_ty get_cell(const coord<int> &loc)
   {
     /* are we within bounds ? */
     if(   loc.y < 0     || loc.x < 0 

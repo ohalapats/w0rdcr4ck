@@ -38,7 +38,8 @@
 void usage(void)
 {
   using namespace std;
-  cout << "./w0rdcr4ck [WORDLIST] [GRID]" << endl
+  cout << endl <<  "USAGE: " << endl
+       << "./w0rdcr4ck [WORDLIST] [GRID]" << endl
        << "WORDLIST is a line-separated textfile containing words" << endl
        << " You can clean up a dirty wordlist with wl_proc.pl" << endl
        << "GRID is a textfile of characters. " << endl 
@@ -51,15 +52,18 @@ int main(int argc, char *argv[])
   using namespace std;
   cout << "w0rdcr4ck v1.0 - copyright under MIT license 2017" << endl << endl;
   Args args(argc, argv);
+
+ 
+  grid<char> tron(args);
   
   if(args.has_errors()){
-    usage();
     args.show_errors();
+    usage();
     cout << "Exiting" << endl;
     return EXIT_FAILURE;
   }
 
-  grid<char> tron(args);
+
   tron.show();
   cout << tron.solve() << " words found" << endl;
   return EXIT_SUCCESS;
