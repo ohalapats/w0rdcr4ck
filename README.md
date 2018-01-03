@@ -1,6 +1,6 @@
 # w0rdcr4ck
 
-[screenshot](https://i.imgur.com/GmxZWkh.png)
+![](https://i.imgur.com/GmxZWkh.png)
 
 
 This is a simple console application to solve wordsearch puzzles. 
