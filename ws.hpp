@@ -43,7 +43,7 @@ using std::function;
 
 void to_lower_word( string &subject )
 {
-  sizt_t len = subject.length();
+  size_t len = subject.length();
   for(size_t i = 0; i < len; i++)
     subject[i] = tolower( subject[i] );
 }
