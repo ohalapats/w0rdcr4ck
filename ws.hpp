@@ -48,21 +48,26 @@ void to_lower_word( string &subject )
     subject[i] = tolower( subject[i] );
 }
 
-
-/* it's not pretty but it's prettier */
 template<typename item_ty>
-inline
-void add_dr( vector< direction<item_ty> > &dr_vec,
-        /* name of the cardinal direction. East, West, etc. */
-        const char *dr_name,
-        /* A direction function */
-        function< coord<item_ty>(coord<item_ty>) > dr_fun) 
-{
-    dr_vec.push_back( /* push_back a direction struct */
-      direction<item_ty>( /* direction struct is composed 
-                           * of a name and a function object pointer */
-        dr_name, new Compass<item_ty>( dr_fun ) ));
-}
+class direction_vec : public  vector< direction<item_ty> > {
+public:
+  typedef  function< coord<item_ty>(coord<item_ty>) > direction_fun;  
+  direction_vec()
+  {}
+
+  ~direction_vec()
+  {
+    for( auto itr = this->begin(); itr != this->end(); itr++)
+      delete itr->walk;
+  }
+
+  void addDirection( const char *dr_name, direction_fun dr_fun)  
+  {
+    this->push_back( 
+      direction<item_ty>( dr_name, new Compass<item_ty>( dr_fun ) )
+    );
+  } 
+};
 
 /** This is the class that stores the grid, prefix tree (wordlist), and 
  * and has the methods to solve the puzzle */
@@ -70,7 +75,7 @@ template<typename grid_ty>
 class grid
 {
   vector<string> the_grid;
-  vector< direction<int> > dr;
+  direction_vec< int > dr;
   Prefix ptree;
   Args &args;
   int X_SIZE;
@@ -83,14 +88,14 @@ public:
     /* add each direction. An inline function was used here
      * to try and clean up the boiler plate. */
     try{
-      add_dr<int>(dr, "South", South<int> );
-      add_dr<int>(dr, "North", North<int>);
-      add_dr<int>(dr, "East", East<int>);
-      add_dr<int>(dr, "West", West<int>);
-      add_dr<int>(dr, "NorthWest", NorthWest<int>);
-      add_dr<int>(dr, "NorthEast", NorthEast<int>);
-      add_dr<int>(dr, "SouthEast", SouthEast<int>);
-      add_dr<int>(dr, "SouthWest", SouthWest<int>);
+      dr.addDirection( "South", South<int> );
+      dr.addDirection( "North", North<int>);
+      dr.addDirection( "East", East<int>);
+      dr.addDirection("West", West<int>);
+      dr.addDirection("NorthWest", NorthWest<int>);
+      dr.addDirection("NorthEast", NorthEast<int>);
+      dr.addDirection( "SouthEast", SouthEast<int>);
+      dr.addDirection("SouthWest", SouthWest<int>);
       bool goodWL = true;
       bool goodGrid = true;
       goodWL =  load_wordlist(args.wordlist_name);
@@ -110,8 +115,6 @@ public:
 
   ~grid()
   {
-    for( auto itr = dr.begin(); itr != dr.end(); itr++)
-      delete itr->walk;
   }
 
   /** display the grid on stdout */
