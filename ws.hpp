@@ -86,32 +86,29 @@ public:
   explicit grid( Args &a )
   :  the_grid(), dr(), ptree(), args(a), X_SIZE(0), Y_SIZE(0)
   {
-    /* add each direction. An inline function was used here
-     * to try and clean up the boiler plate. */
-    try{
-      dr.addDirection( "South", South<int> );
-      dr.addDirection( "North", North<int>);
-      dr.addDirection( "East", East<int>);
-      dr.addDirection("West", West<int>);
-      dr.addDirection("NorthWest", NorthWest<int>);
-      dr.addDirection("NorthEast", NorthEast<int>);
-      dr.addDirection( "SouthEast", SouthEast<int>);
-      dr.addDirection("SouthWest", SouthWest<int>);
-      bool goodWL = true;
-      bool goodGrid = true;
-      goodWL =  load_wordlist(args.wordlist_name);
-      if(! goodWL )
-         args.flag( err_flag::WL_NOT_FOUND );   
+    
+    dr.addDirection( "South", South<int> );
+    dr.addDirection( "North", North<int>);
+    dr.addDirection( "East", East<int>);
+    dr.addDirection("West", West<int>);
+    dr.addDirection("NorthWest", NorthWest<int>);
+    dr.addDirection("NorthEast", NorthEast<int>);
+    dr.addDirection( "SouthEast", SouthEast<int>);
+    dr.addDirection("SouthWest", SouthWest<int>);
+    bool goodWL = true;
+    bool goodGrid = true;
+    goodWL =  load_wordlist(args.wordlist_name);
+    if(! goodWL )
+       args.flag( err_flag::WL_NOT_FOUND );   
 
-      goodGrid =  load_grid(args.grid_name);
-      if(! goodGrid )
-         args.flag( err_flag::GRID_NOT_FOUND );
+    goodGrid =  load_grid(args.grid_name);
+    if(! goodGrid )
+       args.flag( err_flag::GRID_NOT_FOUND );
 
-      if( goodWL && goodGrid ) {
-        Y_SIZE = the_grid.size();
-        X_SIZE = the_grid.front().length(); 
-      }
-    } catch(...){} /* prevent memory leak in case of an exception */
+    if( goodWL && goodGrid ) {
+      Y_SIZE = the_grid.size();
+      X_SIZE = the_grid.front().length(); 
+    }
   }
 
   ~grid()
