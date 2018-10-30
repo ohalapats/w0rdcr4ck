@@ -54,7 +54,16 @@ public:
   using direction_fun = function< coord<item_ty>(coord<item_ty>) >;
   using vector_d = vector< direction<item_ty> >;
   direction_vec()
-  {}
+  {
+    addDirection( "South", South<item_ty> );
+    addDirection( "North", North<item_ty> );
+    addDirection( "East", East<item_ty> );
+    addDirection( "West", West<item_ty> );
+    addDirection( "NorthWest", NorthWest<item_ty> );
+    addDirection( "NorthEast", NorthEast<item_ty> );
+    addDirection( "SouthEast", SouthEast<item_ty> );
+    addDirection( "SouthWest", SouthWest<item_ty> );
+  }
 
   ~direction_vec()
   {
@@ -86,15 +95,6 @@ public:
   explicit grid( Args &a )
   :  the_grid(), dr(), ptree(), args(a), X_SIZE(0), Y_SIZE(0)
   {
-    
-    dr.addDirection( "South", South<int> );
-    dr.addDirection( "North", North<int>);
-    dr.addDirection( "East", East<int>);
-    dr.addDirection("West", West<int>);
-    dr.addDirection("NorthWest", NorthWest<int>);
-    dr.addDirection("NorthEast", NorthEast<int>);
-    dr.addDirection( "SouthEast", SouthEast<int>);
-    dr.addDirection("SouthWest", SouthWest<int>);
     bool goodWL = true;
     bool goodGrid = true;
     goodWL =  load_wordlist(args.wordlist_name);
