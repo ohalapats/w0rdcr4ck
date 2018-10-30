@@ -51,7 +51,7 @@ void to_lower_word( string &subject )
 template<typename item_ty>
 class direction_vec : public  vector< direction<item_ty> > {
 public:
-  typedef  function< coord<item_ty>(coord<item_ty>) > direction_fun;  
+  using direction_fun = function< coord<item_ty>(coord<item_ty>) >;  
   direction_vec()
   {}
 
