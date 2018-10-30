@@ -51,19 +51,20 @@ void to_lower_word( string &subject )
 template<typename item_ty>
 class direction_vec : public  vector< direction<item_ty> > {
 public:
-  using direction_fun = function< coord<item_ty>(coord<item_ty>) >;  
+  using direction_fun = function< coord<item_ty>(coord<item_ty>) >;
+  using vector_d = vector< direction<item_ty> >;
   direction_vec()
   {}
 
   ~direction_vec()
   {
-    for( auto itr = this->begin(); itr != this->end(); itr++)
+    for( auto itr = vector_d::begin(); itr != vector_d::end(); itr++)
       delete itr->walk;
   }
 
   void addDirection( const char *dr_name, direction_fun dr_fun)  
   {
-    this->push_back( 
+    vector_d::push_back( 
       direction<item_ty>( dr_name, new Compass<item_ty>( dr_fun ) )
     );
   } 
