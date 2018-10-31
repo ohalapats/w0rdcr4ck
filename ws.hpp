@@ -131,7 +131,7 @@ public:
   {
     int count = 0;
     string word; 
-    Compass<int> * compass;
+    Compass<int> * compass = nullptr;
     for(int row = 0; row < Y_SIZE; row++){
       for(int col = 0; col < X_SIZE; col++){
         for(auto itr = dr.begin(); itr != dr.end(); itr++){
