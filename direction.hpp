@@ -117,9 +117,10 @@ coord<num_ty> South( coord<num_ty> point )
 template<typename num_ty>
 class Compass
 {
-  typedef function< coord<num_ty>(coord<num_ty>) >
-    func; /**< a fucntion object that takes in a coord and transforms it
-           * and returns a coord pair by-value. num_ty is typically in int */
+  /**< a fucntion object that takes in a coord and transforms it
+   * and returns a coord pair by-value. num_ty is typically in int */
+  using func = function< coord<num_ty>(coord<num_ty>) >
+ /
   func f;
 public:
   coord<num_ty> cur;
