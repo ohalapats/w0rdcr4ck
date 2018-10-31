@@ -97,11 +97,12 @@ public:
   {
     bool goodWL = true;
     bool goodGrid = true;
-    goodWL =  load_wordlist(args.wordlist_name);
+    
+    goodWL =  load_wordlist( args.get_wordlist_path() );
     if(! goodWL )
        args.flag( err_flag::WL_NOT_FOUND );   
 
-    goodGrid =  load_grid(args.grid_name);
+    goodGrid =  load_grid( args.get_grid_path() );
     if(! goodGrid )
        args.flag( err_flag::GRID_NOT_FOUND );
 
