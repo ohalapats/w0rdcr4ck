@@ -44,7 +44,7 @@ enum err_flag{
  * and report errors */
 class Args
 {
-  string wordlist_name;
+  string wordlist_path;
   string grid_name;
 
 public:

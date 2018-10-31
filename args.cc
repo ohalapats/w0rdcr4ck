@@ -29,7 +29,7 @@
 
 
 
-Args::Args(int ac, char *av[]) : wordlist_name(""),  grid_name(""), flags(), argc(ac), argv(av)
+Args::Args(int ac, char *av[]) : wordlist_path(""),  grid_name(""), flags(), argc(ac), argv(av)
 {
   try{ load( ); }
   catch(...){}
@@ -43,7 +43,7 @@ void Args::show_errors(){
     std::cout << "Too many arguments" << std::endl;
 
   if(flags[ err_flag::WL_NOT_FOUND ])
-    std::cout << "Wordlist " << wordlist_name << " not found" << std::endl;
+    std::cout << "Wordlist " << wordlist_path << " not found" << std::endl;
 
   if(flags[ err_flag::GRID_NOT_FOUND ])
     std::cout << "Grid " << grid_name << " not found" << std::endl;
@@ -62,7 +62,7 @@ void Args::load( )
     flags[ err_flag::TOO_MANY_ARGS ] = true;
   
   if( argc >= 2 )
-      wordlist_name = argv[1];
+      wordlist_path = argv[1];
   
   if( argc >= 3 )
       grid_name = argv[2];
@@ -73,7 +73,7 @@ void Args::flag( err_flag flg )
 {  flags[ flg ] = true;  }
 
 const string& Args::get_wordlist_path()
-{ return wordlist_name; }
+{ return wordlist_path; }
 
 const string& Args::get_grid_path()
 { return grid_name; }
