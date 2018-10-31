@@ -52,17 +52,22 @@ public:
 
   int argc;
   char **argv;
-  /** give int args and char *argv[] just like the main function */
+  /** Give int argc and char *argv[] just like the main function */
   Args(int ac, char *av[]);
 
-  /** display errors to stdout */
+  /** Display errors to stdout */
   void show_errors();
+  
   /** true or false if any errors where found */
   bool has_errors();
-  /** set an error status to true */
+  
+  /** Set an error status to true */
   void flag( err_flag flg );
   
+  /** Access the worlist file path. */
   const string& get_wordlist_path();
+  
+  /** Access the grid file path. */
   const string& get_grid_path();
   
 protected:
