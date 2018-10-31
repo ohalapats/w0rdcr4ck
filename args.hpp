@@ -45,10 +45,10 @@ enum err_flag{
 class Args
 {
   string wordlist_name;
- 
+  string grid_name;
+
 public:
   bitset<16> flags;
-  string grid_name;
 
   int argc;
   char **argv;
@@ -63,6 +63,7 @@ public:
   void flag( err_flag flg );
   
   const string& get_wordlist_path();
+  const string& get_grid_path();
   
 protected:
   void load();

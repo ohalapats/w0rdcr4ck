@@ -29,7 +29,7 @@
 
 
 
-Args::Args(int ac, char *av[]) : wordlist_name(""), flags(),  grid_name(""), argc(ac), argv(av)
+Args::Args(int ac, char *av[]) : wordlist_name(""),  grid_name(""), flags(), argc(ac), argv(av)
 {
   try{ load( ); }
   catch(...){}
@@ -74,3 +74,6 @@ void Args::flag( err_flag flg )
 
 const string& Args::get_wordlist_path()
 { return wordlist_name; }
+
+const string& Args::get_grid_path()
+{ return grid_name; }
