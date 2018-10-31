@@ -132,8 +132,8 @@ public:
     int count = 0;
     string word; 
     Compass<int> * compass;
-    for(size_t row = 0; row < Y_SIZE; row++){
-      for(size_t col = 0; col < X_SIZE; col++){
+    for(int row = 0; row < Y_SIZE; row++){
+      for(int col = 0; col < X_SIZE; col++){
         for(auto itr = dr.begin(); itr != dr.end(); itr++){
             compass = itr->walk; 
             /* The compasses are relative to the pos in the matrix */
