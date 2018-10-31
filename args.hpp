@@ -45,7 +45,7 @@ enum err_flag{
 class Args
 {
   string wordlist_path;
-  string grid_name;
+  string grid_path;
 
 public:
   bitset<16> flags;

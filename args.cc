@@ -29,7 +29,7 @@
 
 
 
-Args::Args(int ac, char *av[]) : wordlist_path(""),  grid_name(""), flags(), argc(ac), argv(av)
+Args::Args(int ac, char *av[]) : wordlist_path(""),  grid_path(""), flags(), argc(ac), argv(av)
 {
   try{ load( ); }
   catch(...){}
@@ -46,7 +46,7 @@ void Args::show_errors(){
     std::cout << "Wordlist " << wordlist_path << " not found" << std::endl;
 
   if(flags[ err_flag::GRID_NOT_FOUND ])
-    std::cout << "Grid " << grid_name << " not found" << std::endl;
+    std::cout << "Grid " << grid_path << " not found" << std::endl;
 }
 
 bool Args::has_errors()
@@ -65,7 +65,7 @@ void Args::load( )
       wordlist_path = argv[1];
   
   if( argc >= 3 )
-      grid_name = argv[2];
+      grid_path = argv[2];
 }
 
 
@@ -76,4 +76,4 @@ const string& Args::get_wordlist_path()
 { return wordlist_path; }
 
 const string& Args::get_grid_path()
-{ return grid_name; }
+{ return grid_path; }
