@@ -55,14 +55,14 @@ public:
   using vector_d = vector< direction<item_ty> >;
   direction_vec()
   {
-    addDirection( "South", South<item_ty> );
-    addDirection( "North", North<item_ty> );
-    addDirection( "East", East<item_ty> );
-    addDirection( "West", West<item_ty> );
-    addDirection( "NorthWest", NorthWest<item_ty> );
-    addDirection( "NorthEast", NorthEast<item_ty> );
-    addDirection( "SouthEast", SouthEast<item_ty> );
-    addDirection( "SouthWest", SouthWest<item_ty> );
+    add_direction( "South", South<item_ty> );
+    add_direction( "North", North<item_ty> );
+    add_direction( "East", East<item_ty> );
+    add_direction( "West", West<item_ty> );
+    add_direction( "NorthWest", NorthWest<item_ty> );
+    add_direction( "NorthEast", NorthEast<item_ty> );
+    add_direction( "SouthEast", SouthEast<item_ty> );
+    add_direction( "SouthWest", SouthWest<item_ty> );
   }
 
   ~direction_vec()
@@ -71,9 +71,9 @@ public:
       delete itr->compass;
   }
 
-  void addDirection( const char *dr_name, direction_fun dr_fun)  
+  void add_direction( const char *dr_name, direction_fun dr_fun)  
   {
-    vector_d::push_back( 
+    vector_d::push_back(
       direction<item_ty>( dr_name, new Compass<item_ty>( dr_fun ) )
     );
   } 
