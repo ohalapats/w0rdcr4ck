@@ -68,7 +68,7 @@ public:
   ~direction_vec()
   {
     for( auto itr = vector_d::begin(); itr != vector_d::end(); itr++)
-      delete itr->walk;
+      delete itr->compass;
   }
 
   void addDirection( const char *dr_name, direction_fun dr_fun)  
@@ -136,7 +136,7 @@ public:
     for(int row = 0; row < Y_SIZE; row++){
       for(int col = 0; col < X_SIZE; col++){
         for(auto itr = dr.begin(); itr != dr.end(); itr++){
-            compass = itr->walk; 
+            compass = itr->compass; 
             /* The compasses are relative to the pos in the matrix */
             compass->set_coord(col, row);
 

@@ -161,7 +161,7 @@ public:
 template<typename item_ty>
 struct direction {
   const char *name;
-  Compass<item_ty> *walk;
+  Compass<item_ty> *compass;
   direction(const char *n, Compass<item_ty> *w) 
-  : name(n), walk(w) {}
+  : name(n), compass(w) {}
 };
