@@ -138,12 +138,12 @@ public:
     return cur;
   }
   
-  void set_coord( const coord<int> &to)
+  void set_coord(const coord<int> &to)
   {
     cur = to;
   }
 
-  void set_coord( int x, int y)
+  void set_coord(int x, int y)
   {
     cur.x = x;
     cur.y = y;
