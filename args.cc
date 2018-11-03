@@ -31,8 +31,7 @@
 
 Args::Args(int ac, char *av[]) : wordlist_path(""),  grid_path(""), flags(), argc(ac), argv(av)
 {
-  try{ load( ); }
-  catch(...){}
+  load( );
 }
 
 void Args::show_errors(){
