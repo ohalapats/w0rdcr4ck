@@ -94,9 +94,7 @@ bool Prefix::Monkey::good( )
 { return nullptr != cur; }
 
 void Prefix::Monkey::reset()
-{
-  cur = parent.root;
-}
+{  cur = parent.root;  }
 
 void Prefix::Monkey::advance_lvl()
 {
@@ -120,7 +118,5 @@ bool Prefix::Monkey::look_ahead(char c){
 }
 
 const pre_node * Prefix::Monkey::get_current() const
-{
-  return cur;
-}
+{  return cur;  }
  
