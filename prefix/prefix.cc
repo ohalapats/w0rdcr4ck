@@ -36,7 +36,7 @@ using std::string;
 
 /***   Prefix implementations   ***/
 
-Prefix::Prefix() : root(NULL)
+Prefix::Prefix() : root(nullptr)
 {
 
 }
