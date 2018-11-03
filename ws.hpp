@@ -33,7 +33,7 @@
 #include <cctype>
 #include "direction.hpp"
 #include "args.hpp"
-#include "prefix/prefix.hpp"
+#include "datastructure/prefix.hpp"
 
 using std::vector;
 using std::string;

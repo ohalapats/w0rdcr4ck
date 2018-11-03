@@ -3,5 +3,5 @@ project(w0rdcr4ck)
 
 set( CMAKE_CXX_FLAGS "-Wall -std=c++14" )
 
-add_executable(w0rdcr4ck ws.hpp ws.cc args.cc "prefix/prefix.c" "prefix/prefix.cc")
+add_executable(w0rdcr4ck ws.hpp ws.cc args.cc "datastructure/prefix.c" "datastructure/prefix.cc")
 
