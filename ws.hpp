@@ -67,7 +67,7 @@ public:
 
   ~direction_vec()
   {
-    for(auto itr : *this)
+    for(auto & itr : *this)
       delete itr.compass;
   }
 
@@ -135,7 +135,7 @@ public:
     Compass<int> * compass = nullptr;
     for(int row = 0; row < Y_SIZE; row++){
       for(int col = 0; col < X_SIZE; col++){
-        for(auto itr : dr){
+        for(auto &itr : dr){
             compass = itr.compass; 
             /* The compasses are relative to the pos in the matrix */
             compass->set_coord(col, row);
