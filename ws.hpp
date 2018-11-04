@@ -67,8 +67,8 @@ public:
 
   ~direction_vec()
   {
-    for( auto itr = vector_d::begin(); itr != vector_d::end(); itr++)
-      delete itr->compass;
+    for( auto itr : *this)
+      delete itr.compass;
   }
 
   void add_direction( const char *dr_name, direction_fun dr_fun)  
