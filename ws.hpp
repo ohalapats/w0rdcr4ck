@@ -67,7 +67,7 @@ public:
 
   ~direction_vec()
   {
-    for( auto itr : *this)
+    for(auto itr : *this)
       delete itr.compass;
   }
 
