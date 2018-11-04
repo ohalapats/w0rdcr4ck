@@ -135,8 +135,8 @@ public:
     Compass<int> * compass = nullptr;
     for(int row = 0; row < Y_SIZE; row++){
       for(int col = 0; col < X_SIZE; col++){
-        for(auto itr = dr.begin(); itr != dr.end(); itr++){
-            compass = itr->compass; 
+        for(auto itr : dr){
+            compass = itr.compass; 
             /* The compasses are relative to the pos in the matrix */
             compass->set_coord(col, row);
 
@@ -145,7 +145,7 @@ public:
               count++;
               std::cout << "found " << word 
                 << " at (" << col+1 << "," << row+1 << ")"
-                << " in direction " << itr->name << std::endl;
+                << " in direction " << itr.name << std::endl;
             }
           }
       }
